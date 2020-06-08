@@ -4,52 +4,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  public class ValuesController : ControllerBase
-  {
-    DataContext _context;
-    public ValuesController(DataContext context)
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class ValuesController : ControllerBase
     {
-      _context = context;
-    }
-    // GET: api/Values
-    [HttpGet]
-    public async Task<IActionResult> Get()
-    {
-      var result =  await _context.Values.ToListAsync();
-      return Ok(result);
-    }
+        DataContext _context;
+        public ValuesController(DataContext context)
+        {
+            _context = context;
+        }
+        // GET: api/Values
 
-    // GET: api/Values/5
-    [HttpGet("{id}", Name = "Get")]
-    public string Get(int id)
-    {
-      return "value";
-    }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _context.Values.ToListAsync();
+            return Ok(result);
+        }
 
-    // POST: api/Values
-    [HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
+        // GET: api/Values/5
+        [HttpGet("{id}", Name = "Get")]
+        [AllowAnonymous]
+        public string Get(int id)
+        {
+            return "value";
+        }
 
-    // PUT: api/Values/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
+        // POST: api/Values
+        [HttpPost]
+        public void Post([FromBody] string value)
+        {
+        }
 
-    // DELETE: api/ApiWithActions/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
+        // PUT: api/Values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
     }
-  }
 }
