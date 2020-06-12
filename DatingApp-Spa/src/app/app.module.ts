@@ -1,23 +1,37 @@
-import { ValueComponent } from './value/Value.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavComponent } from './nav/nav.component';
+import { FormsModule } from '@angular/forms'
+import { AuthService } from './_services/auth.service';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      ValueComponent
+      NavComponent,
+      HomeComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
-      AppRoutingModule,
-      HttpClientModule
+      BrowserAnimationsModule,
+      HttpClientModule,
+      FormsModule,
+      BsDropdownModule.forRoot()
    ],
-   providers: [],
+   providers: [
+      AuthService, 
+      ErrorInterceptorProvider
+   ],
    bootstrap: [
       AppComponent
    ]

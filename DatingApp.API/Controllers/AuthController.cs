@@ -44,7 +44,7 @@ namespace DatingApp.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userFromDb.Id.ToString()),
                 new Claim(ClaimTypes.Name , userFromDb.Name)
             };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings :Token").Value));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -55,21 +55,19 @@ namespace DatingApp.API.Controllers
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor); 
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
 
-            return Ok(new { 
-            token = tokenHandler.WriteToken(token)
+            return Ok(new
+            {
+                token = tokenHandler.WriteToken(token)
             });
         }
         // GET: api/<AuthController>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserForRegisterDto user)
         {
-            if (ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            
             user.Name = user.Name.ToLower();
             if (await repo.UserExsists(user.Name))
             {
