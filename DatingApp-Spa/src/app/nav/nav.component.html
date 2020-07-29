@@ -2,19 +2,19 @@
   <div class="container">
 
 
-    <a class="navbar-brand" href="#">Dating App</a>
+    <a class="navbar-brand" [routerLink]="['/home']" >Dating App</a>
 
 
 
     <ul class="navbar-nav mr-auto" *ngIf="loggedIn()">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Matches </a>
+      <li class="nav-item" routerLinkActive="active"> 
+        <a class="nav-link" [routerLink]="['/members']"U>Matches </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Lists</a>
+      <li class="nav-item"  routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/lists']">Lists</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Messeges</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/messages']">Messeges</a>
       </li>
     </ul>
 
@@ -23,7 +23,7 @@
         Welcome {{authService.decodedToken?.unique_name | titlecase}}
       </a>
       <div class="dropdown-menu mt-3" *dropdownMenu>
-        <a class="dropdown-item" href="#"><i class="fa fa-user"></i> profile</a>
+        <a class="dropdown-item" [routerLink]="['/member/edit']"  ><i class="fa fa-user"></i> profile</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
       </div>
@@ -31,7 +31,7 @@
 
 
     <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="toLogin()">
-      <input class="form-control mr-sm-2" required type="text" name="name" placeholder="Name" [(ngModel)]="model.name">
+      <input class="form-control mr-sm-2" required type="text" name="name" placeholder="Name" [(ngModel)]="model.username ">
 
       <input class="form-control mr-sm-2" required type="text" name="password" placeholder="Password"
         [(ngModel)]="model.password">
